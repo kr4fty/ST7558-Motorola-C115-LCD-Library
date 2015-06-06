@@ -1,3 +1,10 @@
+/***************************************************
+
+  Simple example using the ST7558 and Adafruit-GFX librarie
+
+  Author: Tapia Favio: technicc(at)gmail.com
+
+ ****************************************************/
 #include <Adafruit_GFX.h>
 #include <ST7558.h>
 #include <Wire.h>
