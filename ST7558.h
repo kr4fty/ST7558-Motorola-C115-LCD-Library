@@ -20,12 +20,12 @@
 
     Pin1 Vdd +2.8V		+-----------------------------+
     Pin2 Res (n/c)		|                             |
-    Pin3 Sclk			    |        Motorola C115        |
-    Pin4 Sda 			    |            102x65           |
-    Pin5 A0 (Gnd)		  |       (visible 94x64)       |
-    Pin6 Gnd			    +-----------------------------+
+    Pin3 Sclk			|        Motorola C115        |
+    Pin4 Sda 			|            102x65           |
+    Pin5 A0 (Gnd)		|       (visible 94x64)       |
+    Pin6 Gnd			+-----------------------------+
     Pin7 Vlcd +12V		     |  |  |  |  |  |  |  |
-    Pin8 Reset			       1  2  3  4  5  6  7  8 
+    Pin8 Reset		             1  2  3  4  5  6  7  8 
 
  ****************************************************/
 #ifndef _ST7558_H
@@ -39,7 +39,7 @@
 
 #define I2C_ADDR_DISPLAY  0x3C
 
-#define MORE_CONTROL        0x80
+#define MORE_CONTROL       0x80
 #define CONTROL_RS_RAM     0x40
 #define CONTROL_RS_CMD     0x00
 
