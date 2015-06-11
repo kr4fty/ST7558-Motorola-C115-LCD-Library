@@ -1,15 +1,8 @@
-/***************************************************
-
-  Simple example using the ST7558 and Adafruit-GFX librarie
-
-  Author: Tapia Favio: technicc(at)gmail.com
-
- ****************************************************/
 #include <Adafruit_GFX.h>
 #include <ST7558.h>
 #include <Wire.h>
 
-#define RST_PIN 7
+#define RST_PIN A0
 
 ST7558 lcd = ST7558(RST_PIN);
 
@@ -21,7 +14,8 @@ void setup() {
   
   lcd.init();
   lcd.fillScreen(ST7558_BLACK);
-  lcd.invertDisplay(false);  
+  lcd.invertDisplay(false);
+  lcd.clearDisplay();  
   
   
   lcd.drawFastHLine(0, 32, 96, ST7558_BLACK);
@@ -31,14 +25,16 @@ void setup() {
   lcd.drawTriangle(48, 12, 28, 52, 68, 52, ST7558_BLACK);
   
   lcd.setCursor(15, 5);
-  //lcd.setTextSize(2);
+  lcd.setTextSize(0);
   
   lcd.setTextColor(ST7558_BLACK);
   lcd.print("Hello World!");
-  delay(2000);
+  lcd.display();
+  delay(4000);
   
   extern const uint8_t utn_bits[];
   lcd.drawBitmap(0, 0, utn_bits, ST7558_WIDTH, ST7558_HEIGHT, ST7558_BLACK);
+  lcd.display();
   delay(2000);
 }
 

@@ -25,23 +25,45 @@
     Pin5 A0 (Gnd)		|       (visible 94x64)       |
     Pin6 Gnd			+-----------------------------+
     Pin7 Vlcd +12V		     |  |  |  |  |  |  |  |
-    Pin8 Reset		             1  2  3  4  5  6  7  8 
+    Pin8 Reset			     1  2  3  4  5  6  7  8 
 
  ****************************************************/
+
 #ifndef _ST7558_H
 #define _ST7558_H
 
-#define ST7558_WIDTH    102  // 94 visibles
-#define ST7558_HEIGHT   65    // 64 visibles
+#define ST7558_WIDTH    96  // 94 visibles de 102 (de 0 a 95)
+#define ST7558_HEIGHT   65  // 64 visibles de 65 (de 0 a 64)
 
 #define ST7558_BLACK    0
 #define ST7558_WHITE    1
 
 #define I2C_ADDR_DISPLAY  0x3C
 
-#define MORE_CONTROL       0x80
+#define MORE_CONTROL        0x80
 #define CONTROL_RS_RAM     0x40
 #define CONTROL_RS_CMD     0x00
+
+
+#define ST7558_POWERDOWN 0x04
+#define ST7558_ENTRYMODE 0x02
+#define ST7558_EXTENDEDINSTRUCTION 0x01
+
+#define ST7558_DISPLAYBLANK 0x0
+#define ST7558_DISPLAYNORMAL 0x4
+#define ST7558_DISPLAYALLON 0x1
+#define ST7558_DISPLAYINVERTED 0x5
+
+// H = 0
+#define ST7558_FUNCTIONSET 0x20
+#define ST7558_DISPLAYCONTROL 0x08
+#define ST7558_SETYADDR 0x40
+#define ST7558_SETXADDR 0x80
+
+// H = 1
+#define ST7558_SETTEMP 0x04
+#define ST7558_SETBIAS 0x10
+#define ST7558_SETVOP 0x80
 
 
 class ST7558 : public Adafruit_GFX{
@@ -51,24 +73,28 @@ class ST7558 : public Adafruit_GFX{
     ST7558(uint8_t rst=-1);
     
     void init(void),
+           display(void),
            drawPixel(int16_t posX, int16_t posY,  uint16_t color),
+           setContrast(uint8_t val),
            drawFastVLine(int16_t x, int16_t y, int16_t h,  uint16_t color),
            drawFastHLine(int16_t x, int16_t y, int16_t w,  uint16_t color),
-           fillScreen(uint16_t color),
            fillRect(int16_t x, int16_t y, int16_t w, int16_t h,  uint16_t color),
            invertDisplay(boolean i),
            drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h,
-                               uint16_t color) ;
+                               uint16_t color) ,
+           clearDisplay(void);
+  uint8_t getPixel(int8_t x, int8_t y),
+              getPixel(int8_t x, int8_t y, const uint8_t *bitmap, uint8_t w, uint8_t h);
            
  
   private:
-    void i2cwrite(const uint8_t *data, uint8_t len),
+    void i2cwrite(uint8_t *data, uint8_t len),
             hwReset(void),
             displayOff(void),
+            displayOn(void),
             setAddrXY(uint8_t x, uint8_t pageY);
 
     uint8_t _rst,
-                _ram[ST7558_WIDTH][9],  // 102x65
                 colstart, rowstart;
     
 };
