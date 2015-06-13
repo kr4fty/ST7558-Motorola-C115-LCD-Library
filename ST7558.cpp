@@ -356,7 +356,7 @@ void ST7558::invertDisplay(boolean i){
      i2cwrite(cmd_on, sizeof(cmd_on));
 }
 
-void ST7558::drawBitmap(int16_t x, int16_t y,
+/*void ST7558::drawBitmap(int16_t x, int16_t y,
             const uint8_t *bitmap, int16_t w, int16_t h,
             uint16_t color) {
 
@@ -407,7 +407,7 @@ void ST7558::drawBitmap(int16_t x, int16_t y,
       }
    
    updateBoundingBox(minCol, minRow, maxCol-1, maxRow-1);
-}
+}*/
 
 // clear everything
 void ST7558::clearDisplay(void) {

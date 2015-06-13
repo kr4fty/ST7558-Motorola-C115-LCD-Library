@@ -80,8 +80,8 @@ class ST7558 : public Adafruit_GFX{
            drawFastHLine(int16_t x, int16_t y, int16_t w,  uint16_t color),
            fillRect(int16_t x, int16_t y, int16_t w, int16_t h,  uint16_t color),
            invertDisplay(boolean i),
-           drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h,
-                               uint16_t color) ,
+           //drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h,
+             //                  uint16_t color) ,
            clearDisplay(void);
   uint8_t getPixel(int8_t x, int8_t y),
               getPixel(int8_t x, int8_t y, const uint8_t *bitmap, uint8_t w, uint8_t h);
