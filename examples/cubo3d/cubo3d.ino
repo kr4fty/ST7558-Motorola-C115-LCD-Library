@@ -33,6 +33,10 @@ float cube3d[8][3] = {
 };
 unsigned char cube2d[8][2];
 
+unsigned long counter=0;
+uint8_t fps=0, fps_prev;
+#define EnableFps 1
+
 void setup() {
   // put your setup code here, to run once:
   //Serial.begin(9600);
@@ -44,10 +48,15 @@ void setup() {
   lcd.setRotation(0);
   
   lcd.clearDisplay();
-  lcd.display();
-  delay(500);
-}
 
+  if(EnableFps){
+    lcd.setCursor(3,1);
+    lcd.setTextColor(ST7558_BLACK);
+    lcd.print("FPS:");
+  }
+  lcd.display();
+}
+  
 void loop() {
 int rsteps = random(10,60);
   switch(random(6)) {
@@ -88,16 +97,35 @@ int rsteps = random(10,60);
       }
       break;
   }
+ 
+
 }
 
 void printcube() {
+  
+  draw_cube(ST7558_WHITE);
+  
   //calculate 2d points
   for(byte i = 0; i < 8; i++) {
     cube2d[i][0] = (unsigned char)((cube3d[i][0] * view_plane / cube3d[i][2]) + (lcd.width()/2));
     cube2d[i][1] = (unsigned char)((cube3d[i][1] * view_plane / cube3d[i][2]) + (lcd.height()/2));
   }
-  lcd.clearDisplay();
-  draw_cube();
+  //lcd.clearDisplay();
+  draw_cube(ST7558_BLACK);
+
+  if(EnableFps){
+    lcd.setCursor(26,1);
+    lcd.setTextColor(ST7558_WHITE);
+    lcd.print(fps);
+  
+    fps = 1000/(millis()-counter);
+    lcd.setCursor(26,1);
+    lcd.setTextColor(ST7558_BLACK);
+    lcd.print(fps);
+    counter = millis();
+  }
+  
+  lcd.display();
 }
 
 void zrotate(float q) {
@@ -139,20 +167,17 @@ void xrotate(float q) {
   }
 }
 
-void draw_cube() {
-  lcd.drawLine(cube2d[0][0],cube2d[0][1],cube2d[1][0],cube2d[1][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[0][0],cube2d[0][1],cube2d[2][0],cube2d[2][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[0][0],cube2d[0][1],cube2d[4][0],cube2d[4][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[1][0],cube2d[1][1],cube2d[5][0],cube2d[5][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[1][0],cube2d[1][1],cube2d[3][0],cube2d[3][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[2][0],cube2d[2][1],cube2d[6][0],cube2d[6][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[2][0],cube2d[2][1],cube2d[3][0],cube2d[3][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[4][0],cube2d[4][1],cube2d[6][0],cube2d[6][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[4][0],cube2d[4][1],cube2d[5][0],cube2d[5][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[7][0],cube2d[7][1],cube2d[6][0],cube2d[6][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[7][0],cube2d[7][1],cube2d[3][0],cube2d[3][1],ST7558_BLACK);
-  lcd.drawLine(cube2d[7][0],cube2d[7][1],cube2d[5][0],cube2d[5][1],ST7558_BLACK);
-
-  lcd.display();
+void draw_cube(int16_t color) {
+  lcd.drawLine(cube2d[0][0],cube2d[0][1],cube2d[1][0],cube2d[1][1],color);
+  lcd.drawLine(cube2d[0][0],cube2d[0][1],cube2d[2][0],cube2d[2][1],color);
+  lcd.drawLine(cube2d[0][0],cube2d[0][1],cube2d[4][0],cube2d[4][1],color);
+  lcd.drawLine(cube2d[1][0],cube2d[1][1],cube2d[5][0],cube2d[5][1],color);
+  lcd.drawLine(cube2d[1][0],cube2d[1][1],cube2d[3][0],cube2d[3][1],color);
+  lcd.drawLine(cube2d[2][0],cube2d[2][1],cube2d[6][0],cube2d[6][1],color);
+  lcd.drawLine(cube2d[2][0],cube2d[2][1],cube2d[3][0],cube2d[3][1],color);
+  lcd.drawLine(cube2d[4][0],cube2d[4][1],cube2d[6][0],cube2d[6][1],color);
+  lcd.drawLine(cube2d[4][0],cube2d[4][1],cube2d[5][0],cube2d[5][1],color);
+  lcd.drawLine(cube2d[7][0],cube2d[7][1],cube2d[6][0],cube2d[6][1],color);
+  lcd.drawLine(cube2d[7][0],cube2d[7][1],cube2d[3][0],cube2d[3][1],color);
+  lcd.drawLine(cube2d[7][0],cube2d[7][1],cube2d[5][0],cube2d[5][1],color);
 }
-
