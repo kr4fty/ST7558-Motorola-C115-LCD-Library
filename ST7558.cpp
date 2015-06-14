@@ -248,9 +248,9 @@ void ST7558::display(void) {
     setAddrXY(col, p);
     
     while(col<= maxcol ){
-      for(i=1; i<17; i++,col++)
+      for(i=1; (i<17)&&(col<= maxcol); i++,col++)
         buff[i]=st7558_buffer[(_width*p)+col];
-      i2cwrite(buff, sizeof(buff));
+      i2cwrite(buff, i);
     }
   }
   
