@@ -359,8 +359,8 @@ void ST7558::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
   if((x + w - 1) >= _width)  w = _width  - x;
   if((y + h - 1) >= _height) h = _height - y;
   
-  for(j=h; j>=0; j--) {
-    for(i=w; i>=0; i--) {
+  for(j=h; j>0; j--) {
+    for(i=w; i>0; i--) {
       drawPixel(x+i, y+j, color);
     }
   }
