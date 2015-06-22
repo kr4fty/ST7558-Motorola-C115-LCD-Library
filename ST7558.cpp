@@ -30,10 +30,26 @@
  ****************************************************/
 
 #include <avr/pgmspace.h>
+#if defined(ARDUINO) && ARDUINO >= 100
+  #include "Arduino.h"
+#else
+  #include "WProgram.h"
+#endif
+
+#ifdef __AVR__
+  #include <util/delay.h>
+#endif
+
+#ifndef _BV
+  #define _BV(x) (1 << (x))
+#endif
+
+#include <stdlib.h>
+#include <avr/pgmspace.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include "ST7558.h"
-#include "Arduino.h"
+
  
 // the memory buffer for the LCD
 uint8_t st7558_buffer[]={
@@ -337,13 +353,15 @@ void ST7558::drawFastHLine(int16_t x, int16_t y, int16_t w,  uint16_t color){
 void ST7558::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
   uint16_t color) {
   
+  int16_t i, j;
+  
   if((x >= _width) || (y >= _height)) return;
   if((x + w - 1) >= _width)  w = _width  - x;
   if((y + h - 1) >= _height) h = _height - y;
   
-  for(y=h; y>=0; y--) {
-    for(x=w; x>=0; x--) {
-      drawPixel(x, y, color);
+  for(j=h; j>=0; j--) {
+    for(i=w; i>=0; i--) {
+      drawPixel(x+i, y+j, color);
     }
   }
 }
