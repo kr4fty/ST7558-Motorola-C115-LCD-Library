@@ -221,6 +221,8 @@ void ST7558::setContrast(uint8_t val) {
 
 
 void ST7558::init(void) {
+  Wire.begin();
+	
   colstart= 0x80;
   rowstart= 0x40;
   
