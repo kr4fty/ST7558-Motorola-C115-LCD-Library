@@ -32,6 +32,13 @@
 #ifndef _ST7558_H
 #define _ST7558_H
 
+#if defined(ARDUINO) && ARDUINO >= 100
+  #include "Arduino.h"
+#else
+  #include "WProgram.h"
+  #include "pins_arduino.h"
+#endif
+
 #define ST7558_WIDTH    96  // 94 visibles de 102 (de 0 a 95)
 #define ST7558_HEIGHT   65  // 64 visibles de 65 (de 0 a 64)
 
@@ -80,8 +87,8 @@ class ST7558 : public Adafruit_GFX{
            drawFastHLine(int16_t x, int16_t y, int16_t w,  uint16_t color),
            fillRect(int16_t x, int16_t y, int16_t w, int16_t h,  uint16_t color),
            invertDisplay(boolean i),
-           //drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h,
-             //                  uint16_t color) ,
+           displayOff(void),
+           displayOn(void),
            clearDisplay(void);
   uint8_t getPixel(int8_t x, int8_t y),
               getPixel(int8_t x, int8_t y, const uint8_t *bitmap, uint8_t w, uint8_t h);
@@ -90,8 +97,6 @@ class ST7558 : public Adafruit_GFX{
   private:
     void i2cwrite(uint8_t *data, uint8_t len),
             hwReset(void),
-            displayOff(void),
-            displayOn(void),
             setAddrXY(uint8_t x, uint8_t pageY);
 
     uint8_t _rst,

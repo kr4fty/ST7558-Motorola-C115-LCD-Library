@@ -222,7 +222,7 @@ void ST7558::setContrast(uint8_t val) {
 
 void ST7558::init(void) {
   Wire.begin();
-	
+  
   colstart= 0x80;
   rowstart= 0x40;
   
@@ -375,59 +375,6 @@ void ST7558::invertDisplay(boolean i){
    else if(i==false)
      i2cwrite(cmd_on, sizeof(cmd_on));
 }
-
-/*void ST7558::drawBitmap(int16_t x, int16_t y,
-            const uint8_t *bitmap, int16_t w, int16_t h,
-            uint16_t color) {
-
-  uint8_t col, row, j, pixelScreen, pixelBitmap, maxCol, maxRow, minCol, minRow, minBitmapCol, minBitmapRow;
-  uint16_t i;
-  
-  if((x >= _width) || (x<=-w) || (y >= _height) || (y<=-h)) return;
-  
-  minCol= x;
-  maxCol= w;
-  minRow= y;
-  maxRow= h;
-  
-  minBitmapCol= 0;
-  minBitmapRow= 0;
-  
-  if(x<0){
-    minCol= 0;
-    maxCol= w;
-    minBitmapCol= abs(x);
-  }
-  if(y<0){
-    minRow=0;
-    maxRow= h;
-    minBitmapRow= abs(y);
-  }
-    
-  if( (x+w)>=_width )
-    maxCol= _width-x;
-  if( (y+h)>=_height )
-    maxRow= _height-y;
-  
-  if(minCol<0 || minRow<0 || maxCol>_width || maxRow>_height)
-    Serial.println("ERROR!");
-
-  
-  if( x==0 && y==0 && w==_width && h==_height)	// Pagina entera
-    for(i=0 ; i<sizeof(st7558_buffer); i++)
-      st7558_buffer[i] = pgm_read_byte(bitmap+i);
-
-  else										// Copia pixel a pixel
-    for(row=minRow, j=minBitmapRow; j<maxRow; row++, j++)
-      for(col=minCol, i=minBitmapCol; i<maxCol; col++, i++){
-        pixelBitmap= getPixel(i, j, bitmap, w, h);
-        pixelScreen= getPixel(col, row);
-	if( (!color && !pixelScreen && pixelBitmap) || (color && pixelScreen && pixelBitmap) )
-	  drawPixel(col, row, color);
-      }
-   
-   updateBoundingBox(minCol, minRow, maxCol-1, maxRow-1);
-}*/
 
 // clear everything
 void ST7558::clearDisplay(void) {
