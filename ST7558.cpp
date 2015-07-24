@@ -1,7 +1,7 @@
 /***************************************************
   This is a library for the ST7558 i2c display.
 
-  These displays use I"Cto communicate, 2 or 3 pins are required to
+  These displays use I²C to communicate, 2 or 3 pins are required to
   interface (RST is optional)
   
   Based on the driver written by Limor Fried/Ladyada for Adafruit Industries.
