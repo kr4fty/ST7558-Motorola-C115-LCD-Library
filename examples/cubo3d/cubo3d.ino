@@ -1,5 +1,5 @@
 /******************************************************************************
- * Cubo 3D basado en en ejemplo de la libreria Arduino-tvout 
+ * Cubo 3D basado en el ejemplo de la libreria Arduino-tvout 
  * 		<https://code.google.com/p/arduino-tvout/>
  * 
  * ***************************************************************************/
