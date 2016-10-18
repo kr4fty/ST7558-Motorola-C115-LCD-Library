@@ -23,6 +23,10 @@ Motorola C115 Display, chipset ST7558, compatible with:
     Pin7 Vlcd +12V		     |  |  |  |  |  |  |  |
     Pin8 Reset			     1  2  3  4  5  6  7  8 
 
+## Basic connection
+
+![alt tag](https://github.com/kr4fty/ST7558-Motorola-C115-LCD-Library/blob/master/c115.png)
+
 ##3d Cube example video:
 
 https://www.youtube.com/watch?v=zOoVFpy9CIY
