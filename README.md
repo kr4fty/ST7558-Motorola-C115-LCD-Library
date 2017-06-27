@@ -25,7 +25,20 @@ Motorola C115 Display, chipset ST7558, compatible with:
 
 ## Basic connection
 
-![alt tag](https://github.com/kr4fty/ST7558-Motorola-C115-LCD-Library/blob/master/c115.png)
+<p align="center">
+  <br><br>
+  <img src="https://github.com/kr4fty/ST7558-Motorola-C115-LCD-Library/blob/master/c115.png">
+  <br>
+</p>
+
+## Bidirectional 5v-3.3v level shifter
+
+<p align="center">
+  <br><br>
+  <img src="https://github.com/kr4fty/ST7558-Motorola-C115-LCD-Library/blob/master/levelShifter.png">
+  <br>
+</p>
+
 
 ## 3d Cube example video:
 

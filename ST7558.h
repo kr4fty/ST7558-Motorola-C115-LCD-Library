@@ -42,8 +42,11 @@
 #define ST7558_WIDTH    96  // 94 visibles de 102 (de 0 a 95)
 #define ST7558_HEIGHT   65  // 64 visibles de 65 (de 0 a 64)
 
-#define ST7558_BLACK    0
-#define ST7558_WHITE    1
+#define BLACK 1
+#define WHITE 0
+
+#define ST7558_BLACK BLACK
+#define ST7558_WHITE WHITE
 
 #define I2C_ADDR_DISPLAY  0x3C
 
@@ -80,16 +83,13 @@ class ST7558 : public Adafruit_GFX{
     ST7558(uint8_t rst=-1);
     
     void init(void),
+           setContrast(uint8_t val),
+           clearDisplay(void),
            display(void),
            drawPixel(int16_t posX, int16_t posY,  uint16_t color),
-           setContrast(uint8_t val),
-           drawFastVLine(int16_t x, int16_t y, int16_t h,  uint16_t color),
-           drawFastHLine(int16_t x, int16_t y, int16_t w,  uint16_t color),
-           fillRect(int16_t x, int16_t y, int16_t w, int16_t h,  uint16_t color),
            invertDisplay(boolean i),
            displayOff(void),
-           displayOn(void),
-           clearDisplay(void);
+           displayOn(void);
   uint8_t getPixel(int8_t x, int8_t y),
               getPixel(int8_t x, int8_t y, const uint8_t *bitmap, uint8_t w, uint8_t h);
            

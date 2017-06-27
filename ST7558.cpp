@@ -188,19 +188,19 @@ static uint8_t
           cmd_off[]= {CONTROL_RS_CMD, 0x20, 0x08},
           zero16[] = { CONTROL_RS_RAM, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-void ST7558::displayOff(void){
-
-  i2cwrite(cmd_off, sizeof(cmd_off));
-}
-void ST7558::displayOn(void){
-  i2cwrite(cmd_on,sizeof(cmd_on));
-}
-
-void ST7558::setAddrXY(uint8_t x, uint8_t y){
-
-  uint8_t cmdXY[]={CONTROL_RS_CMD, 0x20, colstart+x, rowstart+y};  
+void ST7558::init(void) {
+  Wire.begin();
   
-  i2cwrite( cmdXY, sizeof(cmdXY) );
+  colstart= 0x80;
+  rowstart= 0x40;
+  
+  hwReset();
+  
+  i2cwrite(cmd_init, sizeof(cmd_init));
+  
+  // set up a bounding box for screen updates
+  updateBoundingBox(0, 0, _width-1, _height-1);
+  
 }
 
 void ST7558::setContrast(uint8_t val) {
@@ -219,20 +219,11 @@ void ST7558::setContrast(uint8_t val) {
   
 }
 
-
-void ST7558::init(void) {
-  Wire.begin();
-  
-  colstart= 0x80;
-  rowstart= 0x40;
-  
-  hwReset();
-  
-  i2cwrite(cmd_init, sizeof(cmd_init));
-  
-  // set up a bounding box for screen updates
+// clear everything
+void ST7558::clearDisplay(void) {
+  memset(st7558_buffer, 0, sizeof(st7558_buffer));
   updateBoundingBox(0, 0, _width-1, _height-1);
-  
+  cursor_y = cursor_x = 0;
 }
 
 void ST7558::display(void) {
@@ -276,7 +267,6 @@ void ST7558::display(void) {
   
   setAddrXY(0, 0);
 
-  //command(PCD8544_SETYADDR );  // no idea why this is necessary but it is to finish the last byte?
 #ifdef enablePartialUpdate
   xUpdateMin = _width - 1;
   xUpdateMax = 0;
@@ -288,7 +278,8 @@ void ST7558::display(void) {
 
 void ST7558::drawPixel(int16_t x, int16_t y,  uint16_t color) {
   
-  if((x < 0) ||(x >= _width) || (y < 0) || (y >= _height)) return;
+  if((x < 0) ||(x >= _width) || (y < 0) || (y >= _height))
+    return;
    
   int16_t t;
   switch(rotation){
@@ -312,7 +303,7 @@ void ST7558::drawPixel(int16_t x, int16_t y,  uint16_t color) {
     return;
 
   // x is which column
-  if (!color) 
+  if (color) 
     st7558_buffer[x+ (y/8)*_width] |= _BV(y%8);  
   else
     st7558_buffer[x+ (y/8)*_width] &= ~_BV(y%8); 
@@ -334,38 +325,19 @@ uint8_t ST7558::getPixel(int8_t x, int8_t y, const uint8_t *bitmap, uint8_t w, u
   return (pgm_read_byte(bitmap + (y/8)*w + x) >> (y%8)) & 0x1;  
 }
 
-void ST7558::drawFastVLine(int16_t x, int16_t y, int16_t h,  uint16_t color){
-  
-  if((x >= _width) || (y >= _height)) return;
-  if((y+h-1) >= _height) h = _height-y;
-  
-  for(uint8_t i=y; i<y+h; i++)
-     drawPixel(x, i, color);
+void ST7558::displayOff(void){
+
+  i2cwrite(cmd_off, sizeof(cmd_off));
+}
+void ST7558::displayOn(void){
+  i2cwrite(cmd_on,sizeof(cmd_on));
 }
 
-void ST7558::drawFastHLine(int16_t x, int16_t y, int16_t w,  uint16_t color){
-  
-  if((x >= _width) || (y >= _height)) return;
-  if((x+w-1) >= _width)  w = _width-x;
-  
-  for(uint8_t i=x; i<x+w; i++)
-     drawPixel(i, y, color);
-}
+void ST7558::setAddrXY(uint8_t x, uint8_t y){
 
-void ST7558::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
-  uint16_t color) {
+  uint8_t cmdXY[]={CONTROL_RS_CMD, 0x20, colstart+x, rowstart+y};  
   
-  int16_t i, j;
-  
-  if((x >= _width) || (y >= _height)) return;
-  if((x + w - 1) >= _width)  w = _width  - x;
-  if((y + h - 1) >= _height) h = _height - y;
-  
-  for(j=h; j>0; j--) {
-    for(i=w; i>0; i--) {
-      drawPixel(x+i, y+j, color);
-    }
-  }
+  i2cwrite( cmdXY, sizeof(cmdXY) );
 }
 
 void ST7558::invertDisplay(boolean i){
@@ -374,11 +346,4 @@ void ST7558::invertDisplay(boolean i){
      i2cwrite(cmd_invert, sizeof(cmd_invert));
    else if(i==false)
      i2cwrite(cmd_on, sizeof(cmd_on));
-}
-
-// clear everything
-void ST7558::clearDisplay(void) {
-  memset(st7558_buffer, 0, sizeof(st7558_buffer));
-  updateBoundingBox(0, 0, _width-1, _height-1);
-  cursor_y = cursor_x = 0;
 }
