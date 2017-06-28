@@ -35,16 +35,16 @@ void setup() {
   //delay(1500);
   
   //lcd.clearDisplay();
-  //lcd.setTextColor(ST7558_BLACK);
+  //lcd.setTextColor(BLACK);
   //lcd.setCursor(15,0);
   //lcd.print("Hello World!");
   //lcd.display();
   //delay(1500);
   //lcd.clearDisplay();
-  //lcd.drawBitmap(70, 0, cara,8, 8, ST7558_BLACK);
-  //lcd.drawBitmap(0, 0, black, 96, 65, ST7558_BLACK);
-  lcd.drawBitmap(69, 0, logo16, 16, 16, ST7558_BLACK);
-  //lcd.drawFastVLine(50, 0, ST7558_HEIGHT, ST7558_BLACK);
+  //lcd.drawBitmap(70, 0, cara,8, 8, BLACK);
+  //lcd.drawBitmap(0, 0, black, 96, 65, BLACK);
+  lcd.drawBitmap(69, 0, logo16, 16, 16, BLACK);
+  //lcd.drawFastVLine(50, 0, ST7558_HEIGHT, BLACK);
   //grid();
   //delay(2000);
 }
@@ -52,10 +52,10 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   if(i<ST7558_WIDTH){
-    lcd.drawBitmap(i, 10, flecha, 16, 8, ST7558_BLACK);
+    lcd.drawBitmap(i, 10, flecha, 16, 8, BLACK);
     lcd.display();
     delay(50);
-    lcd.drawBitmap(i, 10, flecha, 16, 8, ST7558_WHITE);
+    lcd.drawBitmap(i, 10, flecha, 16, 8, WHITE);
     i++;
   }
   else
@@ -67,7 +67,7 @@ void grid(){
   lcd.clearDisplay();
   for(x=0; x<ST7558_WIDTH; x+=5)
     for(y=0; y<ST7558_WIDTH; y+=5)
-      lcd.drawPixel(x, y, ST7558_BLACK);
+      lcd.drawPixel(x, y, BLACK);
   lcd.display();
 }
 

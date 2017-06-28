@@ -61,7 +61,7 @@ void setup()   {
   lcd.clearDisplay();   // clears the screen and buffer
 
   // draw a single pixel
-  lcd.drawPixel(10, 10, ST7558_BLACK);
+  lcd.drawPixel(10, 10, BLACK);
   lcd.display();
   delay(2000);
   lcd.clearDisplay();
@@ -91,7 +91,7 @@ void setup()   {
   lcd.clearDisplay();
 
   // draw a circle, 10 pixel radius
-  lcd.fillCircle(lcd.width()/2, lcd.height()/2, 10, ST7558_BLACK);
+  lcd.fillCircle(lcd.width()/2, lcd.height()/2, 10, BLACK);
   lcd.display();
   delay(2000);
   lcd.clearDisplay();
@@ -120,13 +120,13 @@ void setup()   {
 
   // text display tests
   lcd.setTextSize(1);
-  lcd.setTextColor(ST7558_BLACK);
+  lcd.setTextColor(BLACK);
   lcd.setCursor(0,0);
   lcd.println("Hello, world!");
-  lcd.setTextColor(ST7558_BLACK); // 'inverted' text
+  lcd.setTextColor(BLACK); // 'inverted' text
   lcd.println(3.141592);
   lcd.setTextSize(2);
-  lcd.setTextColor(ST7558_BLACK);
+  lcd.setTextColor(BLACK);
   lcd.print("0x"); lcd.println(0xDEADBEEF, HEX);
   lcd.display();
   delay(2000);
@@ -135,7 +135,7 @@ void setup()   {
   lcd.clearDisplay();
   lcd.setRotation(1);  // rotate 90 degrees counter clockwise, can also use values of 2 and 3 to go further.
   lcd.setTextSize(1);
-  lcd.setTextColor(ST7558_BLACK);
+  lcd.setTextColor(BLACK);
   lcd.setCursor(0,0);
   lcd.println("Rotation");
   lcd.setTextSize(2);
@@ -148,7 +148,7 @@ void setup()   {
 
   // miniature bitmap display
   lcd.clearDisplay();
-  lcd.drawBitmap(30, 16,  logo16_glcd_bmp, 16, 16, ST7558_BLACK);
+  lcd.drawBitmap(30, 16,  logo16_glcd_bmp, 16, 16, BLACK);
   lcd.display();
 
   // invert the display
@@ -188,14 +188,14 @@ void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
   while (1) {
     // draw each icon
     for (uint8_t f=0; f< NUMFLAKES; f++) {
-      lcd.drawBitmap(icons[f][XPOS], icons[f][YPOS], logo16_glcd_bmp, w, h, ST7558_BLACK);
+      lcd.drawBitmap(icons[f][XPOS], icons[f][YPOS], logo16_glcd_bmp, w, h, BLACK);
     }
     lcd.display();
     delay(200);
     
     // then erase it + move it
     for (uint8_t f=0; f< NUMFLAKES; f++) {
-      lcd.drawBitmap(icons[f][XPOS], icons[f][YPOS],  logo16_glcd_bmp, w, h, ST7558_WHITE);
+      lcd.drawBitmap(icons[f][XPOS], icons[f][YPOS],  logo16_glcd_bmp, w, h, WHITE);
       // move it
       icons[f][YPOS] += icons[f][DELTAY];
       // if its gone, reinit
@@ -211,7 +211,7 @@ void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
 
 void testdrawchar(void) {
   lcd.setTextSize(1);
-  lcd.setTextColor(ST7558_BLACK);
+  lcd.setTextColor(BLACK);
   lcd.setCursor(0,0);
 
   for (uint8_t i=0; i < 168; i++) {
@@ -225,7 +225,7 @@ void testdrawchar(void) {
 
 void testdrawcircle(void) {
   for (int16_t i=0; i<lcd.height(); i+=2) {
-    lcd.drawCircle(lcd.width()/2, lcd.height()/2, i, ST7558_BLACK);
+    lcd.drawCircle(lcd.width()/2, lcd.height()/2, i, BLACK);
     lcd.display();
   }
 }
@@ -244,87 +244,87 @@ void testdrawtriangle(void) {
   for (int16_t i=0; i<min(lcd.width(),lcd.height())/2; i+=5) {
     lcd.drawTriangle(lcd.width()/2, lcd.height()/2-i,
                      lcd.width()/2-i, lcd.height()/2+i,
-                     lcd.width()/2+i, lcd.height()/2+i, ST7558_BLACK);
+                     lcd.width()/2+i, lcd.height()/2+i, BLACK);
     lcd.display();
   }
 }
 
 void testfilltriangle(void) {
-  uint8_t color = ST7558_BLACK;
+  uint8_t color = BLACK;
   for (int16_t i=min(lcd.width(),lcd.height())/2; i>0; i-=5) {
     lcd.fillTriangle(lcd.width()/2, lcd.height()/2-i,
                      lcd.width()/2-i, lcd.height()/2+i,
                      lcd.width()/2+i, lcd.height()/2+i, color);
-    if (color == ST7558_WHITE) color = ST7558_BLACK;
-    else color = ST7558_WHITE;
+    if (color == WHITE) color = BLACK;
+    else color = WHITE;
     lcd.display();
   }
 }
 
 void testdrawroundrect(void) {
   for (int16_t i=0; i<lcd.height()/2-2; i+=2) {
-    lcd.drawRoundRect(i, i, lcd.width()-2*i, lcd.height()-2*i, lcd.height()/4, ST7558_BLACK);
+    lcd.drawRoundRect(i, i, lcd.width()-2*i, lcd.height()-2*i, lcd.height()/4, BLACK);
     lcd.display();
   }
 }
 
 void testfillroundrect(void) {
-  uint8_t color = ST7558_BLACK;
+  uint8_t color = BLACK;
   for (int16_t i=0; i<lcd.height()/2-2; i+=2) {
     lcd.fillRoundRect(i, i, lcd.width()-2*i, lcd.height()-2*i, lcd.height()/4, color);
-    if (color == ST7558_WHITE) color = ST7558_BLACK;
-    else color = ST7558_WHITE;
+    if (color == WHITE) color = BLACK;
+    else color = WHITE;
     lcd.display();
   }
 }
    
 void testdrawrect(void) {
   for (int16_t i=0; i<lcd.height()/2; i+=2) {
-    lcd.drawRect(i, i, lcd.width()-2*i, lcd.height()-2*i, ST7558_BLACK);
+    lcd.drawRect(i, i, lcd.width()-2*i, lcd.height()-2*i, BLACK);
     lcd.display();
   }
 }
 
 void testdrawline() {  
   for (int16_t i=0; i<lcd.width(); i+=4) {
-    lcd.drawLine(0, 0, i, lcd.height()-1, ST7558_BLACK);
+    lcd.drawLine(0, 0, i, lcd.height()-1, BLACK);
     lcd.display();
   }
   for (int16_t i=0; i<lcd.height(); i+=4) {
-    lcd.drawLine(0, 0, lcd.width()-1, i, ST7558_BLACK);
+    lcd.drawLine(0, 0, lcd.width()-1, i, BLACK);
     lcd.display();
   }
   delay(250);
   
   lcd.clearDisplay();
   for (int16_t i=0; i<lcd.width(); i+=4) {
-    lcd.drawLine(0, lcd.height()-1, i, 0, ST7558_BLACK);
+    lcd.drawLine(0, lcd.height()-1, i, 0, BLACK);
     lcd.display();
   }
   for (int8_t i=lcd.height()-1; i>=0; i-=4) {
-    lcd.drawLine(0, lcd.height()-1, lcd.width()-1, i, ST7558_BLACK);
+    lcd.drawLine(0, lcd.height()-1, lcd.width()-1, i, BLACK);
     lcd.display();
   }
   delay(250);
   
   lcd.clearDisplay();
   for (int16_t i=lcd.width()-1; i>=0; i-=4) {
-    lcd.drawLine(lcd.width()-1, lcd.height()-1, i, 0, ST7558_BLACK);
+    lcd.drawLine(lcd.width()-1, lcd.height()-1, i, 0, BLACK);
     lcd.display();
   }
   for (int16_t i=lcd.height()-1; i>=0; i-=4) {
-    lcd.drawLine(lcd.width()-1, lcd.height()-1, 0, i, ST7558_BLACK);
+    lcd.drawLine(lcd.width()-1, lcd.height()-1, 0, i, BLACK);
     lcd.display();
   }
   delay(250);
 
   lcd.clearDisplay();
   for (int16_t i=0; i<lcd.height(); i+=4) {
-    lcd.drawLine(lcd.width()-1, 0, 0, i, ST7558_BLACK);
+    lcd.drawLine(lcd.width()-1, 0, 0, i, BLACK);
     lcd.display();
   }
   for (int16_t i=0; i<lcd.width(); i+=4) {
-    lcd.drawLine(lcd.width()-1, 0, i, lcd.height()-1, ST7558_BLACK); 
+    lcd.drawLine(lcd.width()-1, 0, i, lcd.height()-1, BLACK); 
     lcd.display();
   }
   delay(250);

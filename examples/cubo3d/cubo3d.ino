@@ -51,7 +51,7 @@ void setup() {
 
   if(EnableFps){
     lcd.setCursor(44,1);
-    lcd.setTextColor(ST7558_BLACK);
+    lcd.setTextColor(BLACK);
     lcd.print("fps");
   }
   lcd.display();
@@ -103,7 +103,7 @@ void loop() {
 
 void printcube() {
   
-  draw_cube(ST7558_WHITE);
+  draw_cube(WHITE);
   
   //calculate 2d points
   for(byte i = 0; i < 8; i++) {
@@ -111,16 +111,16 @@ void printcube() {
     cube2d[i][1] = (unsigned char)((cube3d[i][1] * view_plane / cube3d[i][2]) + (lcd.height()/2));
   }
   //lcd.clearDisplay();
-  draw_cube(ST7558_BLACK);
+  draw_cube(BLACK);
 
   if(EnableFps){
     lcd.setCursor(33,1);
-    lcd.setTextColor(ST7558_WHITE);
+    lcd.setTextColor(WHITE);
     lcd.print(fps);
   
     fps = 1000/(millis()-counter);
     lcd.setCursor(33,1);
-    lcd.setTextColor(ST7558_BLACK);
+    lcd.setTextColor(BLACK);
     lcd.print(fps);
     counter = millis();
   }
