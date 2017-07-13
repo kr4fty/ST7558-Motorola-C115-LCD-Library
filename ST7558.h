@@ -50,7 +50,7 @@
 
     #define I2C_ADDR_DISPLAY  0x3C
 
-    #define MORE_CONTROL        0x80
+    #define MORE_CONTROL       0x80
     #define CONTROL_RS_RAM     0x40
     #define CONTROL_RS_CMD     0x00
 
