@@ -29,7 +29,6 @@
 
  ****************************************************/
 
-#include <avr/pgmspace.h>
 #if defined(ARDUINO) && ARDUINO >= 100
   #include "Arduino.h"
 #else
@@ -44,7 +43,7 @@
   #define _BV(x) (1 << (x))
 #endif
 
-#include <stdlib.h>
+#include <string.h>
 #include <avr/pgmspace.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -170,23 +169,21 @@ void ST7558::hwReset(void){
   }
 }
   
-static uint8_t 
-          cmd_init[]= {CONTROL_RS_CMD, // Bit de Control A0=0
-                                0x2E,                       // MXMY
-                                0x21,                       // Extend Set H=1
-                                0x12,                       // Bias
-                                0xC0,                       // VOP
-                                0x0B,                       // Boost
-                                0x20,                       // Normal Set H=0
-                                0x11,                       // PRS
-                                0x00,                       // nop
-                                0x40,                       // Y addr
-                                0x80,                       // X addr
-	  },
-          cmd_invert[]= {CONTROL_RS_CMD, 0x20, 0x0D},
-          cmd_on[]= {CONTROL_RS_CMD, 0x20, 0x0C},
-          cmd_off[]= {CONTROL_RS_CMD, 0x20, 0x08},
-          zero16[] = { CONTROL_RS_RAM, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+static uint8_t cmd_init[]= {CONTROL_RS_CMD, // Bit de Control A0=0
+                            0x2E,           // MXMY
+                            0x21,           // Extend Set H=1
+                            0x12,           // Bias
+                            0xC0,           // VOP
+                            0x0B,           // Boost
+                            0x20,           // Normal Set H=0
+                            0x11,           // PRS
+                            0x00,           // nop
+                            0x40,           // Y addr
+                            0x80,           // X addr
+                           },
+               cmd_invert[]= {CONTROL_RS_CMD, 0x20, 0x0D},
+               cmd_on[]= {CONTROL_RS_CMD, 0x20, 0x0C},
+               cmd_off[]= {CONTROL_RS_CMD, 0x20, 0x08};
 
 void ST7558::init(void) {
   Wire.begin();
@@ -210,9 +207,9 @@ void ST7558::setContrast(uint8_t val) {
   }
   
   uint8_t cmd[]={CONTROL_RS_CMD, 
-                           ST7558_FUNCTIONSET | ST7558_EXTENDEDINSTRUCTION, 
-                           ST7558_SETVOP | val, 
-                           ST7558_FUNCTIONSET
+                 ST7558_FUNCTIONSET | ST7558_EXTENDEDINSTRUCTION, 
+                 ST7558_SETVOP | val, 
+                 ST7558_FUNCTIONSET
   };
 
   i2cwrite(cmd, sizeof(cmd));

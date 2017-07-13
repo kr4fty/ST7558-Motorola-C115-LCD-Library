@@ -40,9 +40,13 @@ Motorola C115 Display, chipset ST7558, compatible with:
 </p>
 
 
-## 3d Cube example video:
+## Video
 
-https://www.youtube.com/watch?v=zOoVFpy9CIY
+<p align="center">
+  <br><br>
+  <img src="https://img.youtube.com/vi/zOoVFpy9CIY/0.jpg">
+  <br>
+</p>
 
 ### Author
 Tapia Favio <technicc@gmail.com>
