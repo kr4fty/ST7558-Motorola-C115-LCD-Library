@@ -44,6 +44,7 @@ Motorola C115 Display, chipset ST7558, compatible with:
 
 <p align="center">
   <br><br>
+  <a href="https://www.youtube.com/watch?v=zOoVFpy9CIY">
   <img src="https://img.youtube.com/vi/zOoVFpy9CIY/0.jpg">
   <br>
 </p>
