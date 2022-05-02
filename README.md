@@ -7,6 +7,9 @@ ST7558 lcd library for Arduino
 Motorola C115 Display, chipset ST7558, compatible with:
 
      Motorola C113/C115/C116/C118/C123
+
+## Library dependencies
+ * [Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library)
      
 ## Pinouts
 	Lcd chip: ST7558 - Wintek Lcd
